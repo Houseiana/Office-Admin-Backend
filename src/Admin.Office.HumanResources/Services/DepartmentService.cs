@@ -71,11 +71,14 @@ public class DepartmentService(DbContext context) : IDepartmentService
         return true;
     }
 
-    private static DepartmentDto MapToDto(Department d) => new(
-        d.Id,
-        d.Name,
-        d.ParentId,
-        d.Employees.Count,
-        d.Children.Select(MapToDto).ToList()
-    );
+    private static DepartmentDto MapToDto(Department d) => new()
+    {
+        Id = d.Id.ToString(),
+        Name = d.Name,
+        ParentId = d.ParentId?.ToString(),
+        EmployeeCount = d.Employees.Count,
+        Children = d.Children.Count > 0
+            ? d.Children.Select(MapToDto).ToList()
+            : null
+    };
 }

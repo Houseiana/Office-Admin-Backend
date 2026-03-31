@@ -40,11 +40,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Auto-migrate database
+// Auto-migrate database and seed
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
+    await SeedData.SeedAsync(db);
 }
 
 if (app.Environment.IsDevelopment())

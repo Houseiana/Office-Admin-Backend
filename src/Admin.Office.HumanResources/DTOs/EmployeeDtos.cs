@@ -1,121 +1,121 @@
-using Admin.Office.HumanResources.Models;
-
 namespace Admin.Office.HumanResources.DTOs;
 
-public record EmployeeListDto(
-    Guid Id,
-    string Name,
-    string JobTitle,
-    string Email,
-    string Phone,
-    string? DepartmentName,
-    string? Manager,
-    string? WorkLocation,
-    List<string> Tags,
-    string? Avatar,
-    string Presence,
-    string WorkType,
-    List<string> Skills,
-    DateTime StartDate,
-    TimeOffInfoDto TimeOff,
-    bool IsPinned
-);
+/// <summary>
+/// Single DTO used for both list and detail responses.
+/// JSON property names are camelCase by default in ASP.NET Core.
+/// </summary>
+public class EmployeeDto
+{
+    public string Id { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string JobTitle { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string Department { get; set; } = string.Empty;
+    public string? Manager { get; set; }
+    public string? Coach { get; set; }
+    public string? WorkLocation { get; set; }
+    public List<string> Tags { get; set; } = [];
+    public string Avatar { get; set; } = string.Empty;
+    public string Presence { get; set; } = "offline";
+    public string WorkType { get; set; } = "office";
+    public List<string> Skills { get; set; } = [];
+    public string StartDate { get; set; } = string.Empty;
+    public PrivateInfoDto PrivateInfo { get; set; } = new();
+    public TimeOffInfoDto TimeOff { get; set; } = new();
+    public bool IsPinned { get; set; }
+    public ResumeDto? Resume { get; set; }
+}
 
-public record EmployeeDetailDto(
-    Guid Id,
-    string Name,
-    string JobTitle,
-    string Email,
-    string Phone,
-    Guid? DepartmentId,
-    string? DepartmentName,
-    string? Manager,
-    string? Coach,
-    string? WorkLocation,
-    List<string> Tags,
-    string? Avatar,
-    string Presence,
-    string WorkType,
-    List<string> Skills,
-    DateTime StartDate,
-    PrivateInfoDto PrivateInfo,
-    TimeOffInfoDto TimeOff,
-    bool IsPinned,
-    List<WorkExperienceDto> Experience,
-    List<EducationDto> Education
-);
+public class PrivateInfoDto
+{
+    public string Address { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
+    public string Zip { get; set; } = string.Empty;
+    public string Country { get; set; } = string.Empty;
+    public string PersonalEmail { get; set; } = string.Empty;
+    public string PersonalPhone { get; set; } = string.Empty;
+    public string? BankAccount { get; set; }
+}
 
-public record CreateEmployeeDto(
-    string Name,
-    string JobTitle,
-    string Email,
-    string Phone,
-    Guid? DepartmentId,
-    string? Manager,
-    string? Coach,
-    string? WorkLocation,
-    List<string>? Tags,
-    string? Avatar,
-    string? WorkType,
-    List<string>? Skills,
-    DateTime StartDate
-);
+public class TimeOffInfoDto
+{
+    public string Status { get; set; } = "none";
+    public string? Type { get; set; }
+}
 
-public record UpdateEmployeeDto(
-    string? Name,
-    string? JobTitle,
-    string? Email,
-    string? Phone,
-    Guid? DepartmentId,
-    string? Manager,
-    string? Coach,
-    string? WorkLocation,
-    List<string>? Tags,
-    string? Avatar,
-    string? Presence,
-    string? WorkType,
-    List<string>? Skills,
-    DateTime? StartDate,
-    string? Address,
-    string? City,
-    string? State,
-    string? Zip,
-    string? Country,
-    string? PersonalEmail,
-    string? PersonalPhone,
-    string? BankAccount,
-    string? TimeOffStatus,
-    string? TimeOffType,
-    bool? IsPinned
-);
+public class ResumeDto
+{
+    public List<WorkExperienceDto> Experience { get; set; } = [];
+    public List<EducationDto> Education { get; set; } = [];
+}
 
-public record PrivateInfoDto(
-    string? Address,
-    string? City,
-    string? State,
-    string? Zip,
-    string? Country,
-    string? PersonalEmail,
-    string? PersonalPhone,
-    string? BankAccount
-);
+public class WorkExperienceDto
+{
+    public string Title { get; set; } = string.Empty;
+    public string Company { get; set; } = string.Empty;
+    public string StartDate { get; set; } = string.Empty;
+    public string? EndDate { get; set; }
+    public string? Description { get; set; }
+}
 
-public record TimeOffInfoDto(string Status, string? Type);
+public class EducationDto
+{
+    public string Degree { get; set; } = string.Empty;
+    public string School { get; set; } = string.Empty;
+    public string Year { get; set; } = string.Empty;
+}
 
-public record WorkExperienceDto(
-    Guid Id,
-    string Company,
-    string Position,
-    string? Description,
-    DateTime StartDate,
-    DateTime? EndDate
-);
+public class CreateEmployeeDto
+{
+    public string Name { get; set; } = string.Empty;
+    public string JobTitle { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string? Department { get; set; }
+    public string? Manager { get; set; }
+    public string? Coach { get; set; }
+    public string? WorkLocation { get; set; }
+    public List<string>? Tags { get; set; }
+    public string? Avatar { get; set; }
+    public string? WorkType { get; set; }
+    public List<string>? Skills { get; set; }
+    public string? StartDate { get; set; }
+}
 
-public record EducationDto(
-    Guid Id,
-    string Institution,
-    string Degree,
-    string? FieldOfStudy,
-    DateTime StartDate,
-    DateTime? EndDate
-);
+public class UpdateEmployeeDto
+{
+    public string? Name { get; set; }
+    public string? JobTitle { get; set; }
+    public string? Email { get; set; }
+    public string? Phone { get; set; }
+    public string? Department { get; set; }
+    public string? Manager { get; set; }
+    public string? Coach { get; set; }
+    public string? WorkLocation { get; set; }
+    public List<string>? Tags { get; set; }
+    public string? Avatar { get; set; }
+    public string? Presence { get; set; }
+    public string? WorkType { get; set; }
+    public List<string>? Skills { get; set; }
+    public string? StartDate { get; set; }
+    public PrivateInfoDto? PrivateInfo { get; set; }
+    public TimeOffInfoDto? TimeOff { get; set; }
+    public bool? IsPinned { get; set; }
+}
+
+public class ReportingStatsDto
+{
+    public int TotalEmployees { get; set; }
+    public int OnlineCount { get; set; }
+    public int TimeOffCount { get; set; }
+    public int DeptCount { get; set; }
+    public List<DeptDistributionDto> DeptDistribution { get; set; } = [];
+}
+
+public class DeptDistributionDto
+{
+    public string Department { get; set; } = string.Empty;
+    public int Count { get; set; }
+}
