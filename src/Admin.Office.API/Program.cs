@@ -7,8 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? "Data Source=AdminOffice.db"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register DbContext as base DbContext for module services
 builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
